@@ -1,0 +1,16 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+
+
+import com.leeiidesu.libmvp.di.scope.ActivityScope;
+
+import PACKAGE_ORIGINFragment;
+import dagger.Component;
+
+
+#parse("File Header.java")
+@ActivityScope
+@Component(modules = CLASS_ORIGINModule.class, dependencies = BaseComponent.class)
+public interface  ${NAME} {
+    void inject(CLASS_ORIGINFragment fragment);
+}

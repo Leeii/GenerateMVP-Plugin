@@ -1,0 +1,12 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+
+import com.leeiidesu.libmvp.base.AbstractApplication;
+import com.leeiidesu.libmvp.mvp.BaseModel;
+
+#parse("File Header.java")
+public class ${NAME} extends BaseModel<AbstractApplication, APIService> implements CLASS_ORIGINContract.ICLASS_ORIGINModel {
+    public CLASS_ORIGINModel(AbstractApplication simple, APIService apiService) {
+        super(simple, apiService);
+    }
+}

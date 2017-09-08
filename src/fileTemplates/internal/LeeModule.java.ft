@@ -1,0 +1,34 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+
+
+import com.leeiidesu.libmvp.base.AbstractApplication;
+import com.leeiidesu.libmvp.di.scope.ActivityScope;
+
+import PACKAGE_ORIGINContract;
+import PACKAGE_ORIGINModel;
+import dagger.Module;
+import dagger.Provides;
+
+
+#parse("File Header.java")
+@Module
+public class  ${NAME} {
+    private CLASS_ORIGINContract.ICLASS_ORIGINView view;
+
+    public CLASS_ORIGINModule(CLASS_ORIGINContract.ICLASS_ORIGINView view) {
+        this.view = view;
+    }
+
+    @ActivityScope
+    @Provides
+    CLASS_ORIGINContract.ICLASS_ORIGINView providerCLASS_ORIGINView() {
+        return view;
+    }
+
+    @ActivityScope
+    @Provides
+    CLASS_ORIGINContract.ICLASS_ORIGINModel providerCLASS_ORIGINModel(AbstractApplication application, APIService service) {
+        return new CLASS_ORIGINModel(application, service);
+    }
+}

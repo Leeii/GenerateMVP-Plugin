@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_generatemvp" default="compile.module.generatemvp">
+  <dirname property="module.generatemvp.basedir" file="${ant.file.module_generatemvp}"/>
+  
+  <property name="module.jdk.home.generatemvp" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.generatemvp" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.generatemvp" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.generatemvp" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="generatemvp.output.dir" value="${module.generatemvp.basedir}/out/production/GenerateMVP"/>
+  <property name="generatemvp.testoutput.dir" value="${module.generatemvp.basedir}/out/test/GenerateMVP"/>
+  
+  <path id="generatemvp.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="generatemvp.module.production.classpath">
+    <path refid="${module.jdk.classpath.generatemvp}"/>
+  </path>
+  
+  <path id="generatemvp.runtime.production.module.classpath">
+    <pathelement location="${generatemvp.output.dir}"/>
+  </path>
+  
+  <path id="generatemvp.module.classpath">
+    <path refid="${module.jdk.classpath.generatemvp}"/>
+    <pathelement location="${generatemvp.output.dir}"/>
+  </path>
+  
+  <path id="generatemvp.runtime.module.classpath">
+    <pathelement location="${generatemvp.testoutput.dir}"/>
+    <pathelement location="${generatemvp.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.generatemvp">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.generatemvp">
+    <patternset refid="excluded.from.module.generatemvp"/>
+  </patternset>
+  
+  <path id="generatemvp.module.sourcepath">
+    <dirset dir="${module.generatemvp.basedir}">
+      <include name="src"/>
+      <include name="resources"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.generatemvp" depends="compile.module.generatemvp.production,compile.module.generatemvp.tests" description="Compile module GenerateMVP"/>
+  
+  <target name="compile.module.generatemvp.production" depends="register.custom.compilers" description="Compile module GenerateMVP; production classes">
+    <mkdir dir="${generatemvp.output.dir}"/>
+    <javac2 destdir="${generatemvp.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.generatemvp}/javac">
+      <compilerarg line="${compiler.args.generatemvp}"/>
+      <bootclasspath refid="generatemvp.module.bootclasspath"/>
+      <classpath refid="generatemvp.module.production.classpath"/>
+      <src refid="generatemvp.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.generatemvp"/>
+    </javac2>
+    
+    <copy todir="${generatemvp.output.dir}">
+      <fileset dir="${module.generatemvp.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.generatemvp.basedir}/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.generatemvp.tests" depends="register.custom.compilers,compile.module.generatemvp.production" description="compile module GenerateMVP; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.generatemvp" description="cleanup module">
+    <delete dir="${generatemvp.output.dir}"/>
+    <delete dir="${generatemvp.testoutput.dir}"/>
+  </target>
+  
+  <property name="generatemvp.plugin.path.jar" value="${module.generatemvp.basedir}/GenerateMVP.jar"/>
+  
+  <!-- Build archive for plugin 'GenerateMVP' -->
+  <target name="plugin.build.jar.generatemvp" depends="compile.module.generatemvp" description="Build plugin archive for module &#39;GenerateMVP&#39;">
+    <jar destfile="${generatemvp.plugin.path.jar}" duplicate="preserve">
+      <zipfileset dir="${module.generatemvp.basedir}/out/production/GenerateMVP"/>
+      <zipfileset file="${module.generatemvp.basedir}/resources/META-INF/plugin.xml" prefix="META-INF"/>
+      <manifest>
+        <attribute name="Created-By" value="IntelliJ IDEA"/>
+        <attribute name="Manifest-Version" value="1.0"/>
+      </manifest>
+    </jar>
+  </target>
+</project>

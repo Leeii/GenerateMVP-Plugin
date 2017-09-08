@@ -1,0 +1,19 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+
+import android.os.Bundle;
+
+import PROJECT_PACKAGE.R;
+
+#parse("File Header.java")
+public class  ${NAME} extends BaseFragment<CLASS_ORIGINActivity, CLASS_ORIGINPresenter> implements CLASS_ORIGINContract.ICLASS_ORIGINView {
+    @Override
+    protected int getContentViewResId() {
+        return R.layout.fragment_ALL_LOWER_NAME;
+    }
+
+    @Override
+    protected void trySetupData(Bundle savedInstanceState) {
+
+    }
+}

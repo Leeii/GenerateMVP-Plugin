@@ -1,0 +1,14 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+import com.leeiidesu.libmvp.mvp.IContract;
+
+#parse("File Header.java")
+public interface ${NAME} {
+    interface ICLASS_ORIGINView extends IContract.IView<CLASS_ORIGINPresenter> {
+
+    }
+
+    interface ICLASS_ORIGINModel extends IContract.IModel {
+
+    }
+}

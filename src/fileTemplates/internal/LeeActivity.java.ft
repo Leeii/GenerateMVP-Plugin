@@ -1,0 +1,46 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+
+
+import PROJECT_PACKAGE.R;
+
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")
+import ${PACKAGE_NAME}.di.Dagger${NAME}Component;
+import ${PACKAGE_NAME}.di.${NAME}Module;
+#end
+
+#parse("File Header.java")
+public class ${NAME} extends BaseActivity<CLASS_ORIGINPresenter> {
+    @Override
+    protected void trySetupData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_ALL_LOWER_NAME;
+    }
+
+    @Override
+    protected void setupComponent(BaseComponent baseComponent) {
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        CLASS_ORIGINFragment fragment = (CLASS_ORIGINFragment) supportFragmentManager.findFragmentById(R.id.content);
+        if (fragment == null) {
+            fragment = new CLASS_ORIGINFragment();
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.content, fragment)
+                    .commit();
+        }
+
+        DaggerCLASS_ORIGINComponent
+                .builder()
+                .baseComponent(baseComponent)
+                .START_LOWER_NAMEModule(new CLASS_ORIGINModule(fragment))
+                .build()
+                .inject(this);
+    }
+}

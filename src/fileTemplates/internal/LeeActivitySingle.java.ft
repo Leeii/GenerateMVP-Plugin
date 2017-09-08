@@ -1,0 +1,35 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+
+import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
+
+import PROJECT_PACKAGE.R;
+
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")
+import ${PACKAGE_NAME}.di.Dagger${NAME}Component;
+import ${PACKAGE_NAME}.di.${NAME}Module;
+#end
+
+#parse("File Header.java")
+public class ${NAME} extends BaseActivity<CLASS_ORIGINPresenter> implements CLASS_ORIGINContract.ICLASS_ORIGINView {
+    @Override
+    protected void trySetupData(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected int getLayoutResId() {
+        return R.layout.activity_ALL_LOWER_NAME;
+    }
+
+    @Override
+    protected void setupComponent(BaseComponent baseComponent) {
+               DaggerCLASS_ORIGINComponent
+                .builder()
+                .baseComponent(baseComponent)
+                .START_LOWER_NAMEModule(new CLASS_ORIGINModule(this))
+                .build()
+                .inject(this);
+    }
+}

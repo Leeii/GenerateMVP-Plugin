@@ -1,0 +1,13 @@
+#if (${PACKAGE_NAME} && ${PACKAGE_NAME} != "")package ${PACKAGE_NAME};#end
+
+import com.leeiidesu.libmvp.mvp.BasePresenter;
+
+import javax.inject.Inject;
+
+#parse("File Header.java")
+public class  ${NAME} extends BasePresenter<CLASS_ORIGINContract.ICLASS_ORIGINView, CLASS_ORIGINContract.ICLASS_ORIGINModel> {
+    @Inject
+    CLASS_ORIGINPresenter(CLASS_ORIGINContract.ICLASS_ORIGINView mView, CLASS_ORIGINContract.ICLASS_ORIGINModel iModel) {
+        super(mView, iModel);
+    }
+}

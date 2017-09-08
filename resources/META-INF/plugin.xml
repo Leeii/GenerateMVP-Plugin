@@ -1,0 +1,97 @@
+<idea-plugin>
+    <id>com.leeiidesu.gen.GenerateMVP</id>
+    <name>Generate M.V.P code</name>
+    <version>2.2</version>
+    <vendor email="leeiidesu@gmail.com" url="http://www.leeiidesu.com">leeiidesu</vendor>
+
+    <description><![CDATA[
+      This plugin is a key to generate the MVP of the android code.<br>
+      <a>https://github.com/Leeii/LeeFream</a>
+    ]]></description>
+
+    <change-notes><![CDATA[
+    <html>
+      <table border="1">
+        <tr>
+            <th>待替换词</th>
+            <th>对应词（ex:输入 ClassName）</th>
+        </tr>
+        <tr>
+            <td>CLASS_ORIGIN</td>
+            <td>
+                <b>ClassName</b>
+            </td>
+        </tr>
+        <tr>
+            <td>ALL_LOWER_NAME</td>
+            <td>
+                <b>class_name</b>
+            </td>
+        </tr>
+        <tr>
+            <td>START_LOWER_NAME</td>
+            <td>
+                <b>className</b>
+            </td>
+        </tr>
+        <tr>
+            <td>PACKAGE_ORIGIN</td>
+            <td>对应该页面的
+                <b>package</b>
+            </td>
+        </tr>
+        <tr>
+            <td>PROJECT_PACKAGE</td>
+            <td>对应项目的
+                <b>主package</b>
+            </td>
+        </tr>
+      </table>
+    </html>
+
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="145.1"/>
+
+    <depends>com.intellij.modules.lang</depends>
+    <depends>org.jetbrains.android</depends>
+
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibitdty.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <defaultProjectTypeProvider type="Android"/>
+    </extensions>
+
+
+    <extensions defaultExtensionNs="com.intellij">
+        <internalFileTemplate name="LeeActivity"/>
+        <internalFileTemplate name="LeeActivitySingle"/>
+        <internalFileTemplate name="LeeComponent"/>
+        <internalFileTemplate name="LeeContract"/>
+        <internalFileTemplate name="LeeFragment"/>
+        <internalFileTemplate name="LeeFragmentComponent"/>
+        <internalFileTemplate name="LeeFragmentSingle"/>
+        <internalFileTemplate name="LeeModel"/>
+        <internalFileTemplate name="LeeModule"/>
+        <internalFileTemplate name="LeePresenter"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action class="com.leeiidesu.gen.GenerateMVPAction" id="GenerateMVPAction"
+                text="GenerateMVP" description="generate mvp code">
+            <add-to-group group-id="NewGroup"
+                          relative-to-action="NewFile" anchor="before"/>
+            <keyboard-shortcut first-keystroke="alt ctrl shift E" keymap="$default"/>
+        </action>
+    </actions>
+
+</idea-plugin>

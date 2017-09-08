@@ -18,8 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 
-import static org.jetbrains.dekaf.sql.Rewriters.replace;
-
 
 /**
  * Created by dgg on 2017/6/19.
@@ -54,7 +52,7 @@ public class GenerateMVPAction extends JavaCreateTemplateInPackageAction<PsiClas
                 PsiClass leeActivity2 = JavaDirectoryService.getInstance()
                         .createClass(dir, className + "Activity"
                                 , "LeeActivitySingle");
-                onProcessItemViewProvider(dir, className, leeActivity2);
+                onProcessSameFile(dir, className, leeActivity2);
 
                 String qualifiedName3 = leeActivity2.getQualifiedName();
                 this.packageName = qualifiedName3.replace("." + className + "Activity", "");
@@ -66,7 +64,7 @@ public class GenerateMVPAction extends JavaCreateTemplateInPackageAction<PsiClas
                 PsiClass leeFragment2 = JavaDirectoryService.getInstance()
                         .createClass(dir, className + "Fragment"
                                 , "LeeFragmentSingle");
-                onProcessItemViewProvider(dir, className, leeFragment2);
+                onProcessSameFile(dir, className, leeFragment2);
 
                 String qualifiedName2 = leeFragment2.getQualifiedName();
                 this.packageName = qualifiedName2.replace("." + className + "Fragment", "");
@@ -83,7 +81,7 @@ public class GenerateMVPAction extends JavaCreateTemplateInPackageAction<PsiClas
                         .createClass(dir, className + "Activity"
                                 , "LeeActivity");
 
-                onProcessItemViewProvider(dir, className, leeActivity, leeFragment);
+                onProcessSameFile(dir, className, leeActivity, leeFragment);
 
                 String qualifiedName = leeFragment.getQualifiedName();
                 this.packageName = qualifiedName.replace("." + className + "Fragment", "");
@@ -198,17 +196,17 @@ public class GenerateMVPAction extends JavaCreateTemplateInPackageAction<PsiClas
         PsiClass leeModule = JavaDirectoryService.getInstance()
                 .createClass(di, className + "Module",
                         "LeeModule");
-        onProcessItemViewProvider(dir, className, leeComponent, leeContract, leeModel, leeModule, leePresenter);
+        onProcessSameFile(dir, className, leeComponent, leeContract, leeModel, leeModule, leePresenter);
     }
 
-    private void onProcessItemViewProvider(PsiDirectory dir, String className, PsiClass... itemClass) {
+    private void onProcessSameFile(PsiDirectory dir, String className, PsiClass... itemClass) {
         for (PsiClass item :
                 itemClass) {
-            processItemViewProvider(dir, className, item);
+            processFile(dir, className, item);
         }
     }
 
-    private void processItemViewProvider(PsiDirectory dir, String className, PsiClass itemClass) {
+    private void processFile(PsiDirectory dir, String className, PsiClass itemClass) {
 
         PsiFile file = itemClass.getContainingFile();
         final PsiDocumentManager manager = PsiDocumentManager.getInstance(itemClass.getProject());
